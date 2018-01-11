@@ -7,13 +7,13 @@
     settings.KeyFieldName = "Student_ID";
     settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
     settings.SettingsBehavior.EnableRowHotTrack = true;
-
     settings.Columns.Add(column =>
     {
         column.Caption = "学生姓名";
         column.FieldName = "Student_Name";
         column.Width = 100;
     });
+    
     settings.Columns.Add(column =>
     {
         column.Caption = "学生性别";
@@ -33,12 +33,14 @@
         column.FieldName = "Student_Nation";
         column.Width = 100;
     });
+    
     settings.Columns.Add(column =>
     {
         column.Caption = "学生班级";
         column.FieldName = "Student_Class";
         column.Width = 100;
     });
+    
     settings.Columns.Add(column =>
     {
         column.SetDataItemTemplateContent(c =>
@@ -48,6 +50,7 @@
             ViewContext.Writer.Write(Html.ActionLink("修改", "Edit", new { id = Student_ID }));
             ViewContext.Writer.Write(Html.ActionLink("删除", "Delete", new { id = Student_ID }));
         });
+        
         column.SetHeaderTemplateContent(a =>
         {
             ViewContext.Writer.Write("<a href='../../Student/Create'> 新建</a>"); 
