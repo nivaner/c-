@@ -67,17 +67,5 @@ namespace JpmSoft.Utility.Student
         
         
         
-        public string FlowHandle(string style, string taskID, string result, string condition, string explain, List<string> nextUsers, List<string> cc_users)
-        {
-            string clientID = ClientModel.ClientID;// 当前客户端
-            string user = CurrentMember.M_ID;// 当前登录用户ID
-            String solutionID = CurrentMember.Solution;// 当前单位
-            string projectID = "ALL";// 文档所属项目
-            string taskName = "补充合同";       // 任务名称
-            // 调用基类流程处理方法，提交流程
-            return base.FlowHandle(style, taskID.ToString(), clientID,
-            solutionID, projectID, user, result, condition, explain,
-             taskName, nextUsers, cc_users);
-        }
     }
 }
