@@ -17,6 +17,10 @@ namespace JpmSoft.Controllers
             return View(obj);
         }
         #endregion
+        
+        
+        
+        
         #region Index
         public ActionResult Index()
         {
@@ -25,21 +29,21 @@ namespace JpmSoft.Controllers
         #endregion
 
 
+
         #region Create
         public ActionResult Create()
         {
             var dicList = JpmSoftComponent.Dic.Dictionary.ListDictionaryValueByTypeCode("JPMsoft_XSXB", CurrentMember.Solution);
             ViewData["dicList"] = new System.Web.Mvc.SelectList(dicList, "D_Code", "D_Name", "");
-            //var dicList = JpmSoftComponent.Item.Project.GetProjects(CurrentMember.Solution);
-
-            //ViewData["ProjectList"] = new SelectList(dicList, "P_ID", "P_Name");
-
             Utility.JPMContract.Student com = new Utility.JPMContract.Student();
             CurrentStartFlow.Template = com.SysTemplateCode;
             Code.JPMFileHelper.ClearCurrentCreateFileAnnex();
             Code.JPMFileHelper.ClearCurrentFileWordList();
             return View();
         }
+        
+        
+        
         [HttpPost]
         public ActionResult Create_save(JpmSoftDAL.Student srinfo)
         {
