@@ -41,7 +41,6 @@ namespace JpmSoftComponent
 
                 if (student.EntityKey == null)
                     student.EntityKey = temp.EntityKey;
-
                 dbcontext.Detach(temp);
                 dbcontext.Attach(student);
                 dbcontext.ObjectStateManager.ChangeObjectState(student, System.Data.EntityState.Modified);
