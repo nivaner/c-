@@ -1,0 +1,113 @@
+﻿@model JpmSoftDAL.Student
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+
+
+    function OnSuccess(data) {
+        if (data == "1") {
+            alert("编辑成功");
+            window.location.href = "/Student/Index";
+        }
+        else if (data == "0") {
+            alert("参数提交失败");
+        }
+    }
+    function back() {
+        window.history.go(-1);
+    }
+
+
+</script>
+<div class="workplace">
+@using (Ajax.BeginForm("Create_save", "Student", new AjaxOptions
+{
+    HttpMethod = "Post",
+    OnSuccess = "OnSuccess"
+
+}))
+{
+    
+    <table class="table_info">
+        <caption>
+            学生信息管理</caption>
+        <tr>
+            <td class="title">
+                学生姓名：
+            </td>
+            <td class="info" colspan="5">
+                <span id=""></span>
+                @Html.TextBoxFor(n => n.Student_Name)
+            </td>
+        </tr>
+        <tr>
+            <td class="title">
+                学生性别：
+            </td>
+            <td class="info" colspan="5">
+            @Html.DropDownList("Student_Sex", (IEnumerable<SelectListItem>)ViewData["dicList"])
+            </td>
+        </tr>
+        <tr>
+            <td class="title">
+                学生民族：
+            </td>
+            <td class="info">
+                @Html.TextBoxFor(n => n.Student_Nation)
+            </td>
+            </tr>
+            <tr>
+                <td class="title">
+                    学生班级:
+                </td>
+                <td class="info">
+                    @Html.TextBoxFor(n => n.Student_Class)
+                </td>
+        </tr>
+        <br>
+        <div id="jquery-AttachmentUpload">
+        </div>
+        </br>
+    </table>
+
+    Html.RenderAction("FlowButtonsStartPartial", "File");
+
+}
+<link href="../../Content/fineuploader/fineuploader.css" rel="stylesheet" type="text/css" />
+<script src="../../Scripts/jquery.fineuploader-3.7.1.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+var uploader = new qq.FineUploader({
+            element: $('#jquery-AttachmentUpload')[0],
+            request: {
+                endpoint: '/Student/Upload',
+                params: {
+                    //Message_ID: function () { return $("#Message_ID").val() }
+                },
+                paramsInBody: true
+            },
+            callbacks: {
+                onComplete: function (id, Message_Content, responseJSON) {
+                    gvChange.Refresh();
+                }
+            },
+            validation: {
+                //                allowedExtensions: ['jpeg', 'jpg', 'gif', 'png']
+                sizeLimit: 1073741824
+            },
+            text: {
+                uploadButton: '上传附件'
+            },
+            autoUpload: true
+        });
+
+    });
+</script>
+
+
+@{Html.RenderAction("MultiFileSelection", "UploadControl");}
+</div>

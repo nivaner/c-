@@ -1,0 +1,65 @@
+﻿@model JpmSoftDAL.Student
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="../../Scripts/MicrosoftAjax.js" type="text/javascript"></script>
+<script src="../../Scripts/jquery.unobtrusive-ajax.js" type="text/javascript"></script>
+<script src="../../Scripts/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+    function back() {
+        window.history.go(-1);
+    }
+
+</script>
+<div class="workplace">
+
+    @Html.HiddenFor(n=>n.Student_ID)
+    <table class="table_info">
+        <caption>
+            学生信息管理</caption>
+        <tr>
+            <td class="title">
+                学生姓名：
+            </td>
+            <td class="info" colspan="5">
+                <span id=""></span>
+                @Html.DisplayFor(n => n.Student_Name)
+            </td>
+        </tr>
+        <tr>
+            <td class="title">
+                学生性别：
+            </td>
+            <td class="info" colspan="5">
+                @Html.DisplayFor(n =>JpmSoftComponent.Dic.Dictionary.getDictionaryValueByCode( n.Student_Sex,JpmSoft.CurrentMember.Solution).D_Name)
+            </td>
+        </tr>
+        <tr>
+            <td class="title">
+                学生民族：
+            </td>
+            <td class="info">
+                @Html.DisplayFor(n => n.Student_Nation)
+            </td>
+            </tr>
+         <tr>
+                <td class="title">
+                    学生班级:
+                </td>
+                <td class="info">
+                    @Html.DisplayFor(n => n.Student_Class)
+                </td>
+        </tr>
+
+        <tr>
+        @{Html.RenderAction("FileAnnexListPartial", "File", new { id = Model.Student_ID });}
+@{Html.RenderAction("FileProcessGridViewPartial", "File", new { id = Model.Student_ID });}
+        </tr>
+
+    </table>
+           
+        @{Html.RenderAction("FlowButtonsPartial","File");}
+
+</div>

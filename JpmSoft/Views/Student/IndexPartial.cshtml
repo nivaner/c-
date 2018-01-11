@@ -1,0 +1,59 @@
+﻿
+
+@Html.DevExpress().GridView(settings =>
+{
+    settings.Name = "gvStudent";
+    settings.CallbackRouteValues = new { Controller = "Student", Action = "IndexPartial" };
+    settings.KeyFieldName = "Student_ID";
+    settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+    settings.SettingsBehavior.EnableRowHotTrack = true;
+
+    settings.Columns.Add(column =>
+    {
+        column.Caption = "学生姓名";
+        column.FieldName = "Student_Name";
+        column.Width = 100;
+    });
+    settings.Columns.Add(column =>
+    {
+        column.Caption = "学生性别";
+        column.FieldName = "Student_Sex";
+        column.Width = 100; 
+        column.SetDataItemTemplateContent(c =>
+        {
+            var sex = JpmSoftComponent.Dic.Dictionary.getDictionaryValueByCode(DataBinder.Eval(c.DataItem, "Student_Sex").ToString(), JpmSoft.CurrentMember.Solution).D_Name;
+            ViewContext.Writer.Write(sex);
+          });
+    });
+
+    settings.Columns.Add(column =>
+    {
+
+        column.Caption = "学生名族";
+        column.FieldName = "Student_Nation";
+        column.Width = 100;
+    });
+    settings.Columns.Add(column =>
+    {
+        column.Caption = "学生班级";
+        column.FieldName = "Student_Class";
+        column.Width = 100;
+    });
+    settings.Columns.Add(column =>
+    {
+        column.SetDataItemTemplateContent(c =>
+        {
+            var Student_ID = DataBinder.Eval(c.DataItem, "Student_ID").ToString();
+            ViewContext.Writer.Write(Html.ActionLink("详情", "Details", new { id = Student_ID }));
+            ViewContext.Writer.Write(Html.ActionLink("修改", "Edit", new { id = Student_ID }));
+            ViewContext.Writer.Write(Html.ActionLink("删除", "Delete", new { id = Student_ID }));
+        });
+        column.SetHeaderTemplateContent(a =>
+        {
+            ViewContext.Writer.Write("<a href='../../Student/Create'> 新建</a>"); 
+        });
+    });
+
+}).Bind(Model).GetHtml()
+
+

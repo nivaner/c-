@@ -1,0 +1,84 @@
+﻿@model JpmSoftDAL.Student
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="../../Scripts/MicrosoftAjax.js" type="text/javascript"></script>
+<script src="../../Scripts/jquery.unobtrusive-ajax.js" type="text/javascript"></script>
+<script src="../../Scripts/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    function OnSuccess(data) {
+        if (data == "1") {
+            alert("编辑成功");
+            window.location.href = "/Student/Index";
+        }
+        else if (data == "0") {
+            alert("参数提交失败");
+        }
+    }
+    function back() {
+        window.history.go(-1);
+    }
+
+</script>
+<div class="workplace">
+@using (Ajax.BeginForm("Edit_save", "Student", new AjaxOptions
+{
+    HttpMethod = "Post",
+    OnSuccess = "OnSuccess"
+
+}))
+{
+    @Html.HiddenFor(n=>n.Student_ID)
+    <table class="table_info">
+        <caption>
+            学生信息管理</caption>
+        <tr>
+            <td class="title">
+                学生姓名：
+            </td>
+            <td class="info" colspan="5">
+                <span id=""></span>
+                @Html.TextBoxFor(n => n.Student_Name)
+            </td>
+        </tr>
+        <tr>
+            <td class="title">
+                学生性别：
+            </td>
+            <td class="info" colspan="5">
+                @Html.DisplayFor(n =>JpmSoftComponent.Dic.Dictionary.getDictionaryValueByCode( n.Student_Sex,JpmSoft.CurrentMember.Solution).D_Name)@Html.TextBoxFor(n => n.Student_Sex)
+            </td>
+        </tr>
+        <tr>
+            <td class="title">
+                学生民族：
+            </td>
+            <td class="info">
+                @Html.TextBoxFor(n => n.Student_Nation)
+            </td>
+            <tr>
+                <td class="title">
+                    学生班级:
+                </td>
+                <td class="info">
+                    @Html.TextBoxFor(n => n.Student_Class)
+                </td>
+        </tr>
+    </table>
+    Html.RenderAction("FileProcessGridViewPartial", "File", new { id = Model.Student_ID });
+    @Html.Action("FlowButtonsEditPartial","File")
+    }
+    <tr>
+    <td>
+                  @{ Html.RenderAction("FileAnnexListManagePartial", "File", new { id = Model.Student_ID });}
+    </td>
+    <td>
+                <input type="submit" value="保存" class="btn" />
+            <input type="button" value="返回" onclick="back()" class="btn" />
+    </td>
+
+    </tr>
+
+
+</div>
