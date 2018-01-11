@@ -12,23 +12,21 @@ namespace JpmSoft.Utility.Student
         public string SysTemplateCode = "Student";
         public JpmSoftDAL.Student entity { get; set; }
         public Student() { }
-
         public Student(string id)
         {
             base.BaseFile = JPMFileHelper.GetBaseFile(id);
         }
 
 
+
         public int Create()
         {
             base.BaseFile = JpmSoft.Code.JPMFileHelper.CreateBaseFile(entity.Student_ID);
             base.SysTemplateCode = this.SysTemplateCode;
-            //base.BaseFile.file.FileProject = contract.Contract_ProjectItemID;
             base.BaseFile.file.FileTitle = entity.Student_ID;
             UploadControlHelper.ClearAnnexCollection();
             if (base.Save() == 1) // 保存基类文档信息
             {
-
                 if (JpmSoftComponent.Student.AddStudent(entity) == 1)
                     return 1;
                 else
@@ -36,7 +34,6 @@ namespace JpmSoft.Utility.Student
                     base.Delete();
                     return 0;
                 }
-
             }
             return 0;
         }
@@ -52,8 +49,8 @@ namespace JpmSoft.Utility.Student
                 return JpmSoftComponent.Student.EditStudent(entity);
             }
             return 0;
-
         }
+
 
 
         public int Delete(string id)
@@ -65,14 +62,15 @@ namespace JpmSoft.Utility.Student
                 base.Delete();
                 return 1;
             }
-
             return 0;
         }
+        
+        
+        
         public string FlowHandle(string style, string taskID, string result, string condition, string explain, List<string> nextUsers, List<string> cc_users)
         {
             string clientID = ClientModel.ClientID;// 当前客户端
-            // 当前登录用户ID
-            string user = CurrentMember.M_ID;
+            string user = CurrentMember.M_ID;// 当前登录用户ID
             String solutionID = CurrentMember.Solution;// 当前单位
             string projectID = "ALL";// 文档所属项目
             string taskName = "补充合同";       // 任务名称
