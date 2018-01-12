@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table border="1" id="table">
+    <tr style="background-color: gray; color: red;">
+        <th>a</th>
+        <th>b</th>
+    </tr>
+    <tr>
+        <td>c</td>
+        <td>d</td>
+    </tr>
+</table>
+<script type="text/javascript">
+    $("#table tr:eq(0)td:nth-child(1)").value("88888888")
+    $("#table tr:eq(0)td:nth-child(1)").css("color", "red").css("font-weight","bold").css("font-family", "宋体");
+    $("#table tr:eq(1)td:nth-child(2)").value("666666")
+</script>
+</body>
+</html>
