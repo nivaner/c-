@@ -15,7 +15,6 @@ namespace JpmSoftComponent
         public static int AddStudent(JpmSoftDAL.Student student)
         {
                 var dbcontext = JPMProjectDataProvider.dbcontext;
-               
                 try
                 {
                     dbcontext.AddToStudent(student);
@@ -41,11 +40,9 @@ namespace JpmSoftComponent
 
                 if (student.EntityKey == null)
                     student.EntityKey = temp.EntityKey;
-
                 dbcontext.Detach(temp);
                 dbcontext.Attach(student);
                 dbcontext.ObjectStateManager.ChangeObjectState(student, System.Data.EntityState.Modified);
-
                 dbcontext.SaveChanges();
                 return 1;
             }
